@@ -13,7 +13,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Home",
     "title": "OnlinePackage.generate",
     "category": "Method",
-    "text": "generate(repo_name, create_appveyor = true)\n\nGenerate GitHub, Travis, and (optionally) AppVeyor remotes for a repository. BE SURE TO ADD .jl AT THE END OF THE REPO_NAME FOR JULIA REPOSITORIES.\n\n\n\n"
+    "text": "generate(repo_name, create_appveyor = true)\n\nGenerate GitHub, Travis, and (optionally) AppVeyor remotes for a repository.\n\n\n\n"
 },
 
 {
