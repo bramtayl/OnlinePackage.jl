@@ -3,7 +3,6 @@ export generate
     generate(repo_name, create_appveyor = true)
 
 Generate GitHub, Travis, and (optionally) AppVeyor remotes for a repository.
-BE SURE TO ADD .jl AT THE END OF THE REPO_NAME FOR JULIA REPOSITORIES.
 """
 function generate(repo_name; create_appveyor = true, github_time = 60, travis_time = 60)
     if !endswith(repo_name, ".jl")
