@@ -1,6 +1,6 @@
 using Remotes
 
-repo_name = "Test2"
+repo_name = "Test.jl"
 
 username = Remotes.settings("username")
 github_token = Remotes.settings("github_token")
