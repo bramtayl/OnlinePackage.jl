@@ -14,4 +14,4 @@ set_up(username, github_token, appveyor_token)
 generate(repo_name)
 ```
 
-See documentation [here](https://img.shields.io/badge/docs-stable-blue.svg)](https://bramtayl.github.io/OnlinePackage.jl/stable) for more information
+See documentation [here](https://bramtayl.github.io/OnlinePackage.jl/stable) for more information
