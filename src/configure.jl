@@ -1,4 +1,4 @@
-const settings_file = joinpath((@__FILE__) |> dirname |> dirname, "remotes.json")
+const settings_file = joinpath((@__FILE__) |> dirname |> dirname, "online_package.json")
 
 export set_up
 """

@@ -1,13 +1,13 @@
-using Remotes
+using OnlinePackage
 
 repo_name = "Test.jl"
 
-username = Remotes.settings("username")
-github_token = Remotes.settings("github_token")
-appveyor_token = Remotes.settings("appveyor_token")
-ssh_keygen_file = Remotes.settings("ssh_keygen_file")
+username =  OnlinePackage.settings("username")
+github_token =  OnlinePackage.settings("github_token")
+appveyor_token =  OnlinePackage.settings("appveyor_token")
+ssh_keygen_file =  OnlinePackage.settings("ssh_keygen_file")
 set_up(username, github_token, appveyor_token, ssh_keygen_file = ssh_keygen_file)
 
 github, travis, appveyor = generate(repo_name, github_time = 60, travis_time = 60)
-Remotes.delete(github)
-Remotes.delete(appveyor)
+OnlinePackage.delete(github)
+OnlinePackage.delete(appveyor)
