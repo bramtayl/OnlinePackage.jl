@@ -1,4 +1,4 @@
-repo_name = "Test27.jl"
+repo_name = "Test.jl"
 
 username = settings("username")
 github_token = settings("github_token")
