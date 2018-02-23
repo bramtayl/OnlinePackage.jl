@@ -18,9 +18,10 @@ end
 
 function create(a::AppVeyor)
     info("Creating appveyor")
-    talk_to(HTTP.post, a, "/api/projects", Dict(
+    talk_to(HTTP.post, a, "/api/projects", json(Dict(
         "repositoryProvider" => "gitHub",
-        "repositoryName" => user_repo(a) ) ) |> json_parse
+        "repositoryName" => user_repo(a)
+    ))) |> json_parse
 end
 
 function delete(a::AppVeyor)

@@ -1,4 +1,5 @@
 export generate
+
 """
     generate(repo_name, create_appveyor = true)
 
@@ -34,14 +35,20 @@ function generate(repo_name; create_appveyor = true, github_time = 60, travis_ti
         create(travis)
 
         public_key, private_key = make_keys()
-        key(github, ".documenter", public_key)
-        key(travis, "DOCUMENTER_KEY", private_key)
+        retry_eof() do
+            key(github, ".documenter", public_key)
+        end
+        retry_eof() do
+            key(travis, "DOCUMENTER_KEY", private_key)
+        end
 
         if create_appveyor
             if exists(appveyor)
                 error("appveyor already exists")
             end
-            repo!(appveyor)
+            retry_eof() do
+                repo!(appveyor)
+            end
             created_appveyor = true
         end
     catch x
@@ -54,5 +61,5 @@ function generate(repo_name; create_appveyor = true, github_time = 60, travis_ti
         end
         rethrow(x)
     end
-    github, travis, appveyor
+    github, travis
 end

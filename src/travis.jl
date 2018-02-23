@@ -13,7 +13,8 @@ base_url(t::Travis) = "https://api.travis-ci.org"
 
 headers(t::Travis) = Dict(
     "Travis-API-Version" => "3",
-    "Authorization" => "token $(t.token)")
+    "Authorization" => "token $(t.token)",
+    "User-Agent" => user_agent)
 
 function user(t::Travis)
     info("Getting travis user")
@@ -42,10 +43,11 @@ end
 
 function key(t::Travis, name, value; public = false)
     info("Creating travis key")
-    talk_to(HTTP.post, t, "/repo/$(t.repo_code)/env_vars", Dict(
+    talk_to(HTTP.post, t, "/repo/$(t.repo_code)/env_vars", json(Dict(
         "env_var.name" => name,
         "env_var.value" => value,
-        "env_var.public" => public))
+        "env_var.public" => public
+    )))
 end
 
 function exists(t::Travis)

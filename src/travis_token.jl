@@ -7,6 +7,8 @@ headers(t::TravisToken) = Dict(
 
 function get_travis_token(github_token)
     info("Getting travis token")
-    (talk_to(HTTP.post, TravisToken(), "/auth/github", Dict(
-        "github_token" => github_token)) |> json_parse)["access_token"]
+    json_parse(talk_to(HTTP.post, TravisToken(),
+        "/auth/github",
+        Dict("github_token" => github_token)
+    ))["access_token"]
 end

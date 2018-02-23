@@ -8,7 +8,10 @@ GitHub(repo_name) =
     GitHub(repo_name, settings("username"), settings("github_token"))
 
 base_url(g::GitHub) = "https://api.github.com"
-headers(g::GitHub) = Dict("Authorization" => "token $(g.token)")
+headers(g::GitHub) = Dict(
+    "Authorization" => "token $(g.token)",
+    "User-Agent" => user_agent
+)
 
 function repos(g::GitHub)
     info("Getting github repos")
@@ -17,16 +20,17 @@ end
 
 function create(g::GitHub)
     info("Creating github")
-    talk_to(HTTP.post, g, "/user/repos", Dict(
-        "name" => g.repo_name) )
+    talk_to(HTTP.post, g, "/user/repos", json(Dict(
+        "name" => g.repo_name)))
 end
 
 function key(g::GitHub, name, value; read_only = false)
     info("Creating github key")
-    talk_to(HTTP.post, g, "/repos/$(g.username)/$(g.repo_name)/keys", Dict(
+    talk_to(HTTP.post, g, "/repos/$(g.username)/$(g.repo_name)/keys", json(Dict(
         "title" => name,
         "key" => value,
-        "read_only" => read_only) )
+        "read_only" => read_only
+    )))
 end
 
 # note only checks the first 100 repos, sorry

@@ -16,7 +16,9 @@ Windows users with git installed, try
 `ssh_keygen_file = "C:/Program Files/Git/usr/bin/ssh-keygen"`.
 """
 set_up(username, github_token, appveyor_token;
-    travis_token = get_travis_token(github_token),
+    travis_token = retry_eof() do
+        get_travis_token(github_token)
+    end,
     ssh_keygen_file = "ssh-keygen",
     file = settings_file
 ) = open(file, "w") do io
