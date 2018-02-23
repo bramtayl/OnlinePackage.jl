@@ -2,6 +2,7 @@
 language: julia
 os:
   - linux
+<<<<<<< HEAD
   - osx
 julia:
   - 0.6
@@ -16,3 +17,20 @@ after_success:
   - julia -e 'cd(Pkg.dir("OnlinePackage")); Pkg.add("Documenter"); include(joinpath("docs", "make.jl"))'
 # push coverage results to Codecov
   - julia -e 'cd(Pkg.dir("OnlinePackage")); Pkg.add("Coverage"); using Coverage; Codecov.submit(Codecov.process_folder())'
+=======
+julia:
+  - 0.6
+  - nightly
+matrix:
+  allow_failures:
+    - julia: nightly
+  fast_finish: true
+notifications:
+  email: false
+script:
+  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
+  - julia -e 'Pkg.clone(pwd()); Pkg.build("OnlinePackage"); Pkg.test("OnlinePackage"; coverage=true)'
+after_success:
+  - julia -e 'cd(Pkg.dir("OnlinePackage")); Pkg.add("Coverage"); using Coverage; Codecov.submit(process_folder())'
+  - julia -e 'Pkg.add("Documenter"); cd(Pkg.dir("OnlinePackage")); include(joinpath("docs", "make.jl"))'
+>>>>>>> lost
