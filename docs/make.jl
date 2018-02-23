@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-import Documenter
-
-Documenter.deploydocs(
-    repo = "github.com/bramtayl/OnlinePackage.jl.git",
-    target = "build",
-    deps = nothing,
-    make = nothing,
-    julia = "0.6"
-=======
 using Documenter, OnlinePackage
 
 makedocs(;
@@ -28,5 +18,4 @@ deploydocs(;
     julia="0.6",
     deps=nothing,
     make=nothing,
->>>>>>> lost
 )
