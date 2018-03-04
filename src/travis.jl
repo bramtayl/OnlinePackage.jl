@@ -43,11 +43,11 @@ end
 
 function key(t::Travis, name, value; public = false)
     info("Creating travis key")
-    talk_to(HTTP.post, t, "/repo/$(t.repo_code)/env_vars", json(Dict(
+    talk_to(HTTP.post, t, "/repo/$(t.repo_code)/env_vars", Dict(
         "env_var.name" => name,
         "env_var.value" => value,
         "env_var.public" => public
-    )))
+    ))
 end
 
 function exists(t::Travis)
