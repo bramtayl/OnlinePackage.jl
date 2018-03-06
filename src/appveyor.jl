@@ -9,7 +9,10 @@ AppVeyor(repo_name) =
     AppVeyor(repo_name, settings("username"), settings("appveyor_token"), "")
 
 base_url(a::AppVeyor) = "https://ci.appveyor.com/"
-headers(a::AppVeyor) = Dict("Authorization" => "Bearer $(a.token)")
+headers(a::AppVeyor) = Dict(
+    "Authorization" => "Bearer $(a.token)",
+    "Content-type" => "application/json"
+)
 
 function repos(a::AppVeyor)
     info("Getting appveyor repos")

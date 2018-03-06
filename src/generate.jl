@@ -1,5 +1,6 @@
 export generate
 
+repo_name = "Test32.jl"
 """
     generate(repo_name, create_appveyor = true)
 
@@ -13,7 +14,6 @@ function generate(repo_name; create_appveyor = true, github_time = 60, travis_ti
     created_appveyor = false
     github = GitHub(repo_name)
     travis = Travis(repo_name)
-    appveyor = AppVeyor(repo_name)
 
     try
         if exists(github)
@@ -43,6 +43,7 @@ function generate(repo_name; create_appveyor = true, github_time = 60, travis_ti
         end
 
         if create_appveyor
+            appveyor = AppVeyor(repo_name)
             if exists(appveyor)
                 error("appveyor already exists")
             end
@@ -50,6 +51,9 @@ function generate(repo_name; create_appveyor = true, github_time = 60, travis_ti
                 repo!(appveyor)
             end
             created_appveyor = true
+            github, travis, appveyor
+        else
+            github, travis
         end
     catch x
         info("Ran into an error; cleaning up")
@@ -61,5 +65,4 @@ function generate(repo_name; create_appveyor = true, github_time = 60, travis_ti
         end
         rethrow(x)
     end
-    github, travis
 end
