@@ -13,7 +13,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Home",
     "title": "OnlinePackage.generate",
     "category": "method",
-    "text": "generate(repo_name, create_appveyor = true)\n\nGenerate GitHub, Travis, and (optionally) AppVeyor remotes for a repository.\n\n\n\n"
+    "text": "generate(repo_name)\n\nGenerate GitHub, Travis, and AppVeyor remotes for a repository.\n\n\n\n"
 },
 
 {
