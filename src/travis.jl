@@ -36,12 +36,32 @@ function repo(t::Travis)
     talk_to(HTTP.get, t, "/repo/$(t.username)%2F$(t.repo_name)") |> json_parse
 end
 
-function create(t::Travis)
+function activate(t::Travis)
     info("Creating travis")
     talk_to(HTTP.post, t, "/repo/$(t.repo_code)/activate")
 end
 
-function key(t::Travis, name, value; public = false)
+function get_keys(t::Travis)
+    info("Getting travis keys")
+    talk_to(HTTP.get, t, "/repo/$(t.repo_code)/env_vars") |> json_parse
+end
+
+function delete_key(t::Travis, key_id)
+    info("Deleting travis key")
+    talk_to(HTTP.delete, t, "/repo/$(t.repo_code)/env_var/$key_id")
+end
+
+function delete_keys(t::Travis, name)
+    foreach(
+        travis_key ->
+            if travis_key["name"] == name
+                delete_key(t, travis_key["id"])
+            end,
+        get_keys(t)["env_vars"]
+    )
+end
+
+function add_key(t::Travis, name, value; public = false)
     info("Creating travis key")
     talk_to(HTTP.post, t, "/repo/$(t.repo_code)/env_vars", Dict(
         "env_var.name" => name,

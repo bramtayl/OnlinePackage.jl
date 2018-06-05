@@ -24,13 +24,33 @@ function create(g::GitHub)
         "name" => g.repo_name)))
 end
 
-function key(g::GitHub, name, value; read_only = false)
+function get_keys(g::GitHub)
+    info("Getting github keys")
+    talk_to(HTTP.get, g, "/repos/$(g.username)/$(g.repo_name)/keys") |> json_parse
+end
+
+function add_key(g::GitHub, name, value; read_only = false)
     info("Creating github key")
     talk_to(HTTP.post, g, "/repos/$(g.username)/$(g.repo_name)/keys", json(Dict(
         "title" => name,
         "key" => value,
         "read_only" => read_only
     )))
+end
+
+function delete_key(g::GitHub, key_id)
+    info("Deleting github key")
+    talk_to(HTTP.delete, g, "/repos/$(g.username)/$(g.repo_name)/keys/$key_id")
+end
+
+function delete_keys(g::GitHub, name)
+    foreach(
+        github_key ->
+            if github_key["title"] == name
+                delete_key(g, github_key["id"])
+            end,
+        get_keys(g)
+    )
 end
 
 # note only checks the first 100 repos, sorry
