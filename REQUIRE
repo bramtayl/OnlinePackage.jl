@@ -2,4 +2,3 @@ julia 0.6
 JSON
 HTTP
 LibGit2
-Base64
