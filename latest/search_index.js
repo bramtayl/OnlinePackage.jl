@@ -21,7 +21,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Home",
     "title": "OnlinePackage.set_up",
     "category": "method",
-    "text": "set_up(username, github_token; get_travis_token(github_token), ssh_keygen_file = \"ssh-keygen\")\n\nSet up OnlinePackage.\n\nGet a github_token here. Make sure to check the \"public_repo\" scope.\n\nThe default ssh_keygen_file assumes ssh-keygen is in your path. If not, it often comes prepacked with git; check PATH_TO_GIT/usr/bin/ssh-keygen\".\n\n\n\n\n\n"
+    "text": "set_up(username, github_token; get_travis_token(github_token), ssh_keygen_file = \"ssh-keygen\")\n\nset up OnlinePackage.\n\nget a github_token here. make sure to check the \"public_repo\" scope.\n\nthe default ssh_keygen_file assumes ssh-keygen is in your path. if not, it often comes prepacked with git; check PATH_TO_GIT/usr/bin/ssh-keygen\".\n\n\n\n\n\n"
 },
 
 {
@@ -29,7 +29,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Home",
     "title": "OnlinePackage.put_online",
     "category": "method",
-    "text": "put_online(repo_name)\n\nput a repository online; create a github and travis repository and connect them with a key.\n\n\n\n\n\n"
+    "text": "put_online(repo_name)\n\nput a repository online: create a github and travis repository and connect them with a key.\n\n\n\n\n\n"
 },
 
 {
