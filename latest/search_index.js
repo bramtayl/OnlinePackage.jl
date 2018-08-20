@@ -9,19 +9,27 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "index.html#OnlinePackage.generate-Tuple{Any}",
+    "location": "index.html#OnlinePackage.copy_package-Tuple{Any,Any}",
     "page": "Home",
-    "title": "OnlinePackage.generate",
+    "title": "OnlinePackage.copy_package",
     "category": "method",
-    "text": "generate(repo_name)\n\nGenerate GitHub, Travis, and AppVeyor remotes for a repository.\n\n\n\n"
+    "text": "copy_package(model, package)\n\ncreate a new package based off of model. model must be in the working directory.\n\n\n\n\n\n"
 },
 
 {
-    "location": "index.html#OnlinePackage.set_up-Tuple{Any,Any,Any}",
+    "location": "index.html#OnlinePackage.set_up-Tuple{Any,Any}",
     "page": "Home",
     "title": "OnlinePackage.set_up",
     "category": "method",
-    "text": "set_up(username, github_token, appveyor_token; ssh_keygen_file = \"ssh-keygen\")\n\nSet up OnlinePackage.\n\nGet a github_token here. Make sure to check the \"public_repo\" and \"delete_repo\" scopes.\n\nGet a appveyor_token here.\n\nThe default ssh-keygen_file assumes ssh-keygen is in your path. For Windows users with git installed, try ssh_keygen_file = \"C:/Program Files/Git/usr/bin/ssh-keygen\".\n\n\n\n"
+    "text": "set_up(username, github_token; get_travis_token(github_token), ssh_keygen_file = \"ssh-keygen\")\n\nSet up OnlinePackage.\n\nGet a github_token here. Make sure to check the \"public_repo\" scope.\n\nThe default ssh_keygen_file assumes ssh-keygen is in your path. If not, it often comes prepacked with git; check PATH_TO_GIT/usr/bin/ssh-keygen\".\n\n\n\n\n\n"
+},
+
+{
+    "location": "index.html#OnlinePackage.put_online-Tuple{Any}",
+    "page": "Home",
+    "title": "OnlinePackage.put_online",
+    "category": "method",
+    "text": "put_online(repo_name)\n\nput a repository online; create a github and travis repository and connect them with a key.\n\n\n\n\n\n"
 },
 
 {
