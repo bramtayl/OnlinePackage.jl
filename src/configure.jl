@@ -2,37 +2,30 @@ const settings_file = joinpath((@__FILE__) |> dirname |> dirname, "online_packag
 
 export set_up
 """
-    set_up(username, github_token, appveyor_token; ssh_keygen_file = "ssh-keygen")
+    set_up(username, github_token; get_travis_token(github_token), ssh_keygen_file = "ssh-keygen")
 
 Set up `OnlinePackage`.
 
 Get a `github_token` [here](https://github.com/settings/tokens/new). Make
-sure to check the `"public_repo"` and `"delete_repo"` scopes.
+sure to check the `"public_repo"` scope.
 
-Get a `appveyor_token` [here](https://ci.appveyor.com/api-token).
-
-The default `ssh-keygen_file` assumes ssh-keygen is in your path. For
-Windows users with git installed, try
-`ssh_keygen_file = "C:/Program Files/Git/usr/bin/ssh-keygen"`.
+The default `ssh_keygen_file` assumes ssh-keygen is in your path. If not,
+it often comes prepacked with git; check `PATH_TO_GIT/usr/bin/ssh-keygen"`.
 """
-set_up(username, github_token, appveyor_token;
-    travis_token = get_travis_token(github_token),
-    ssh_keygen_file = "ssh-keygen",
-    file = settings_file
-) = open(file, "w") do io
-    JSON.print(io, Dict(
-        "username" => username,
-        "github_token" => github_token,
-        "travis_token" => travis_token,
-        "appveyor_token" => appveyor_token,
-        "ssh_keygen_file" => ssh_keygen_file))
-end
+set_up(username, github_token; ssh_keygen_file = "ssh-keygen", travis_token = get_travis_token(github_token)) =
+    open(settings_file, "w") do io
+        JSON.print(io, Dict(
+            "username" => username,
+            "github_token" => github_token,
+            "travis_token" => travis_token,
+            "ssh_keygen_file" => ssh_keygen_file))
+    end
 
-function settings(name; file = settings_file)
-    if !ispath(file)
+function settings(name; settings_file = settings_file)
+    if !ispath(settings_file)
         error("Cannot find settings. Please `set_up`")
     end
-    dict = JSON.parsefile(file)
+    dict = JSON.parsefile(settings_file)
     if !haskey(dict, name)
         error("Missing setting $name")
     end

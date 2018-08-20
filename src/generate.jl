@@ -1,30 +1,31 @@
 export generate
 
 """
-    generate(repo_name)
+    put_online(repo_name)
 
-Generate GitHub, Travis, and AppVeyor remotes for a repository.
+put a repository online; create a github and travis repository and
+connect them with a key.
 """
-function generate(repo_name; github_time = 60, travis_time = 60)
+function put_online(repo_name; github_time = 60, travis_time = 60)
     if !endswith(repo_name, ".jl")
         ArgumentError("repo_name $repo_name must end with .jl")
     end
     github = GitHub(repo_name)
     travis = Travis(repo_name)
     if exists(github)
-        info("github already exists")
+        @info "github already exists"
     else
         create(github)
-        info("Waiting $github_time seconds for github creation")
+        @info "Waiting $github_time seconds for github creation"
         sleep(github_time)
     end
 
     if exists(travis)
-        info("travis already exists")
+        @info "travis already exists"
     else
         user!(travis)
         sync(travis)
-        info("Waiting $travis_time seconds for travis syncing")
+        @info "Waiting $travis_time seconds for travis syncing"
         sleep(travis_time)
         if !exists(travis)
             error("travis doesn't exist, likely due to incomplete syncing")
@@ -40,11 +41,5 @@ function generate(repo_name; github_time = 60, travis_time = 60)
     delete_keys(travis, "DOCUMENTER_KEY")
     add_key(travis, "DOCUMENTER_KEY", private_key)
 
-    appveyor = AppVeyor(repo_name)
-    if exists(appveyor)
-        info("appveyor already exists")
-    else
-        repo!(appveyor)
-    end
-    github, travis, appveyor
+    github, travis
 end

@@ -17,37 +17,37 @@ headers(t::Travis) = Dict(
     "User-Agent" => user_agent)
 
 function user(t::Travis)
-    info("Getting travis user")
+    @info "getting travis user"
     talk_to(HTTP.get, t, "/user") |> json_parse
 end
 
 function sync(t::Travis)
-    info("Syncing travis")
+    @info "syncing travis"
     talk_to(HTTP.post, t, "/user/$(t.user_code)/sync")
 end
 
 function repos(t::Travis)
-    info("Getting travis repos")
+    @info "getting travis repos"
     talk_to(HTTP.get, t, "/repos") |> json_parse
 end
 
 function repo(t::Travis)
-    info("Getting travis repo")
+    @info "getting travis repo"
     talk_to(HTTP.get, t, "/repo/$(t.username)%2F$(t.repo_name)") |> json_parse
 end
 
 function activate(t::Travis)
-    info("Creating travis")
+    @info "creating travis"
     talk_to(HTTP.post, t, "/repo/$(t.repo_code)/activate")
 end
 
 function get_keys(t::Travis)
-    info("Getting travis keys")
+    @info "getting travis keys"
     talk_to(HTTP.get, t, "/repo/$(t.repo_code)/env_vars") |> json_parse
 end
 
 function delete_key(t::Travis, key_id)
-    info("Deleting travis key")
+    @info "deleting travis key"
     talk_to(HTTP.delete, t, "/repo/$(t.repo_code)/env_var/$key_id")
 end
 
@@ -62,7 +62,7 @@ function delete_keys(t::Travis, name)
 end
 
 function add_key(t::Travis, name, value; public = false)
-    info("Creating travis key")
+    @info "creating travis key"
     talk_to(HTTP.post, t, "/repo/$(t.repo_code)/env_vars", Dict(
         "env_var.name" => name,
         "env_var.value" => value,

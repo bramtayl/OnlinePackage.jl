@@ -1,6 +1,6 @@
 make_keys(ssh_keygen_file = settings("ssh_keygen_file")) = mktempdir() do temp
     cd(temp) do
-        info("Generating ssh key")
+        @info "Generating ssh key"
         filename = ".documenter"
         try
             run(`$ssh_keygen_file -f $filename -N ""`)
@@ -11,7 +11,7 @@ make_keys(ssh_keygen_file = settings("ssh_keygen_file")) = mktempdir() do temp
                 rethrow()
             end
         end
-        string(filename, ".pub") |> readstring,
-            filename |> readstring |> base64encode
+        read(string(filename, ".pub"), String),
+            read(filename, String) |> base64encode
     end
 end

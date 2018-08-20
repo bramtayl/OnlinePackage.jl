@@ -15,7 +15,6 @@ makedocs(;
 deploydocs(;
     repo="github.com/bramtayl/OnlinePackage.jl",
     target="build",
-    julia="0.6",
     deps=nothing,
     make=nothing,
 )
