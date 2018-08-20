@@ -8,5 +8,5 @@ julia:
 notifications:
   email: false
 after_success:
-  - julia -e 'import JuliennedArrays, Pkg; Pkg.add("Coverage"); import Coverage.Codecov; OnlinePackage |> pathof |> dirname |> Codecov.process_folder |> Codecov.submit'
-  - julia -e 'import JuliennedArrays, Pkg; Pkg.add("Documenter"); joinpath(OnlinePackage |> pathof |> dirname |> dirname, "docs", "make.jl") |> include'
+  - julia -e 'import OnlinePackage, Pkg; Pkg.add("Coverage"); import Coverage.Codecov; OnlinePackage |> pathof |> dirname |> Codecov.process_folder |> Codecov.submit'
+  - julia -e 'import OnlinePackage, Pkg; Pkg.add("Documenter"); joinpath(OnlinePackage |> pathof |> dirname |> dirname, "docs", "make.jl") |> include'
