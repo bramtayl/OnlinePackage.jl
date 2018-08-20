@@ -4,12 +4,12 @@ export set_up
 """
     set_up(username, github_token; get_travis_token(github_token), ssh_keygen_file = "ssh-keygen")
 
-Set up `OnlinePackage`.
+set up `OnlinePackage`.
 
-Get a `github_token` [here](https://github.com/settings/tokens/new). Make
+get a `github_token` [here](https://github.com/settings/tokens/new). make
 sure to check the `"public_repo"` scope.
 
-The default `ssh_keygen_file` assumes ssh-keygen is in your path. If not,
+the default `ssh_keygen_file` assumes ssh-keygen is in your path. if not,
 it often comes prepacked with git; check `PATH_TO_GIT/usr/bin/ssh-keygen"`.
 """
 set_up(username, github_token; ssh_keygen_file = "ssh-keygen", travis_token = get_travis_token(github_token)) =
