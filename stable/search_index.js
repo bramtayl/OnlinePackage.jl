@@ -29,7 +29,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Home",
     "title": "OnlinePackage.put_online",
     "category": "method",
-    "text": "put_online(repo_name)\n\nput a repository online: create a github and travis repository and connect them with a key.\n\n\n\n\n\n"
+    "text": "put_online(repo_name)\n\nput a repository online: create a github and travis repository (if they don\'t already exist) and connect them with a key.\n\n\n\n\n\n"
 },
 
 {
