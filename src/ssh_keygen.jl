@@ -12,6 +12,8 @@ make_keys(ssh_keygen_file = settings("ssh_keygen_file")) = mktempdir() do temp
             end
         end
         read(string(filename, ".pub"), String),
-            read(filename, String) |> base64encode
+            read(filename, String) |> chomp |> base64encode
     end
 end
+
+show(make_keys()[2])
