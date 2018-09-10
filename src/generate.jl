@@ -3,8 +3,8 @@ export generate
 """
     put_online(repo_name)
 
-put a repository online: create a github and travis repository and
-connect them with a key.
+put a repository online: create a github and travis repository (if they don't
+already exist) and connect them with a key.
 """
 function put_online(repo_name; github_time = 60, travis_time = 60)
     if !endswith(repo_name, ".jl")
