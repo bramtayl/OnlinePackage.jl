@@ -8,5 +8,3 @@ set_up(username, github_token, ssh_keygen_file = ssh_keygen_file)
 
 github, travis = put_online(repo_name)
 delete(github)
-
-cd("..")
