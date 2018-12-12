@@ -64,11 +64,11 @@ end
 
 function add_key(t::Travis, name, value; public = false)
     @info "creating travis key"
-    talk_to(HTTP.post, t, "/repo/$(t.repo_code)/env_vars", json(Dict(
-        "env_vars.name" => name,
-        "env_vars.value" => value,
-        "env_vars.public" => public
-    )))
+    talk_to(HTTP.post, t, "/repo/$(t.repo_code)/env_vars", Dict(
+        "env_var.name" => name,
+        "env_var.value" => value,
+        "env_var.public" => public
+    ))
 end
 
 function exists(t::Travis)
