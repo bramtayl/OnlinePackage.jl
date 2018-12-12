@@ -1,5 +1,4 @@
-export generate
-
+export put_online
 """
     put_online(repo_name)
 

@@ -41,12 +41,12 @@ function copy_package(model, package)
     end
 
     @info "initializing new git repository"
-    repo = LibGit2.init(pwd())
+    my_repo = LibGit2.init(pwd())
     url = "https://github.com/$(settings("username"))/$package.jl.git"
     @info "setting origin to $url"
-    LibGit2.set_remote_url(repo, "origin", url)
+    LibGit2.set_remote_url(my_repo, "origin", url)
     @info "initial empty commit"
-    LibGit2.commit(repo, "initial empty commit")
+    LibGit2.commit(my_repo, "initial empty commit")
     @info "creating gh-pages branch"
-    LibGit2.branch!(repo, "gh-pages", set_head=false)
+    LibGit2.branch!(my_repo, "gh-pages", set_head=false)
 end
