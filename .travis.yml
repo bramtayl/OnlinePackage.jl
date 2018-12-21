@@ -1,12 +1,16 @@
 language: julia
-os:
-  - linux
+os: linux
 julia:
-  - 0.7
   - 1.0
   - nightly
 notifications:
   email: false
-after_success:
-  - julia -e 'import OnlinePackage, Pkg; Pkg.add("Coverage"); import Coverage.Codecov; OnlinePackage |> pathof |> dirname |> Codecov.process_folder |> Codecov.submit'
-  - julia -e 'import OnlinePackage, Pkg; Pkg.add("Documenter"); joinpath(OnlinePackage |> pathof |> dirname |> dirname, "docs", "make.jl") |> include'
+codecov: true
+jobs:
+  include:
+    - stage: "Documentation"
+      julia: nightly
+      os: linux
+      script:
+        - julia --project=docs/ -e 'using Pkg; Pkg.instantiate(); Pkg.develop(PackageSpec(path=pwd()))'
+        - julia --project=docs/ docs/make.jl

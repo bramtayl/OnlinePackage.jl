@@ -2,17 +2,19 @@ const settings_file = joinpath((@__FILE__) |> dirname |> dirname, "online_packag
 
 export set_up
 """
-    set_up(username, github_token; get_travis_token(github_token), ssh_keygen_file = "ssh-keygen")
+    set_up(username, github_token, travis_token, ssh_keygen_file = "ssh-keygen")
 
 set up `OnlinePackage`.
 
 get a `github_token` [here](https://github.com/settings/tokens/new). make
 sure to check the `"public_repo"` scope.
 
+get your `travis_token` [here](https://travis-ci.org/account/preferences).
+
 the default `ssh_keygen_file` assumes ssh-keygen is in your path. if not,
 it often comes prepacked with git; check `PATH_TO_GIT/usr/bin/ssh-keygen"`.
 """
-set_up(username, github_token; ssh_keygen_file = "ssh-keygen", travis_token = get_travis_token(github_token)) =
+set_up(username, github_token, travis_token; ssh_keygen_file = "ssh-keygen") =
     open(settings_file, "w") do io
         JSON.print(io, Dict(
             "username" => username,
