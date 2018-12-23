@@ -3,4 +3,4 @@
 *.jl.cov
 *.jl.*.cov
 *.jl.mem
-*.json
+online_package.toml

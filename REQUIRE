@@ -1,5 +1,5 @@
 julia 1.0
-JSON
 HTTP
-LibGit2
+JSON
+Pkg
 Base64
