@@ -1,0 +1,4 @@
+username = "OnlinePackage"
+github_token = "a6090b9228b7ba8a89b9dc91497136274be3906f"
+travis_token = "IPlN-ZrrYTS56wcLKQk4ow"
+ssh_keygen_file = "C:\\Program Files\\Git\\usr\\bin\\ssh-keygen.exe"
