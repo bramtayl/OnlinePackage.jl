@@ -115,15 +115,7 @@ function put_online(u::User, repo_name)
 
     public_key, private_key = mktempdir() do temp
         cd(temp) do
-            try
-                read(`$ssh_keygen_file -f $key_name -N ""`, String)
-            catch x
-                if isa(x, Base.UVError)
-                    error("Cannot find $ssh_keygen_file")
-                else
-                    rethrow()
-                end
-            end
+            read(`$ssh_keygen_file -f $key_name -N ""`, String)
             read(string(key_name, ".pub"), String),
                 read(key_name, String) |> chomp |> base64encode
         end
