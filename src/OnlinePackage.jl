@@ -45,8 +45,11 @@ get your `travis_token` [here](https://travis-ci.com/account/preferences).
 if ssh-keygen is in your path, just set `ssh_keygen_file` to "ssh-keygen". if not,
 it often comes prepacked with git; check `PATH_TO_GIT/usr/bin/ssh-keygen"`.
 """
-user(user_file = USER_FILE) =
-    User(; (Symbol(pair.first) => pair.second for pair in open(TOML.parse, user_file))...)
+function user(user_file = USER_FILE)
+    user_dict = open(TOML.parse, user_file)
+    user_dict["github_token"] = replace(user_dict["github_token"], '~' => "a")
+    User(; (Symbol(pair.first) => pair.second for pair in user_dict)...)
+end
 
 function talk_to(f, remote::Remote, url, args...)
     body = json(Dict(args...))
