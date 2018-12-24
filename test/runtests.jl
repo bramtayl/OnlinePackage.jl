@@ -1,7 +1,7 @@
 using Documenter: makedocs, deploydocs
 import OnlinePackage
 
-root = joinpath(dirname(@__DIR__), "docs"),
+root = joinpath(dirname(@__DIR__), "docs")
 
 makedocs(
     modules = [OnlinePackage],
