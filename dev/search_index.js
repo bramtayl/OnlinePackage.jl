@@ -29,7 +29,7 @@ var documenterSearchIndex = {"docs": [
     "page": "OnlinePackage",
     "title": "OnlinePackage.put_online",
     "category": "method",
-    "text": "putonline(u::User, reponame)\n\nput a repository online: create a github and travis repository (if they don\'t already exist) and connect them with a key.\n\njulia> using OnlinePackage\n\njulia> u = user(joinpath(dirname(pwd()), \"sample.toml\"));\n\njulia> put_online(u, \"Test.jl\")\n\njulia> delete(u, \"Test.jl\")\n\n\n\n\n\n"
+    "text": "put_online(u::User, repo_name)\n\nput a repository online: create a github and travis repository (if they don\'t already exist) and connect them with a key.\n\njulia> using OnlinePackage\n\njulia> u = user(joinpath(dirname(pwd()), \"sample.toml\"));\n\njulia> put_online(u, \"Test.jl\")\n\njulia> delete(u, \"Test.jl\")\n\n\n\n\n\n"
 },
 
 {
