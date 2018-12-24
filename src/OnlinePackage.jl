@@ -83,7 +83,7 @@ github(u::User) = Remote("https://api.github.com", u.github_token)
 
 export put_online
 """
-put_online(u::User, repo_name)
+    put_online(u::User, repo_name)
 
 put a repository online: create a github and travis repository (if they don't
 already exist) and connect them with a key.
