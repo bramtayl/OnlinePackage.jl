@@ -13,7 +13,7 @@ var documenterSearchIndex = {"docs": [
     "page": "OnlinePackage",
     "title": "OnlinePackage.USER_FILE",
     "category": "constant",
-    "text": "Where OnlinePackage will look for your user information\n\n\n\n\n\n"
+    "text": "where OnlinePackage will look for your user information\n\n\n\n\n\n"
 },
 
 {
