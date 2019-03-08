@@ -8,7 +8,7 @@ using Base64: base64encode
 
 export USER_FILE
 
-"Where OnlinePackage will look for your user information"
+"where OnlinePackage will look for your user information"
 const USER_FILE = joinpath(dirname(dirname(@__FILE__)), "online_package.toml")
 
 struct Remote
