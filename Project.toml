@@ -1,6 +1,8 @@
 name = "OnlinePackage"
 uuid = "dec300e5-7e5b-577b-bc13-c7c11ad250bc"
 repo = "https://github.com/bramtayl/OnlinePackage.jl.git"
+author = ["Brandon Taylor <brandon.taylor221@gmail.com>"]
+version = "0.1.4"
 
 [deps]
 HTTP = "cd3eb016-35fb-5094-929b-558a96fad6f3"
@@ -14,3 +16,6 @@ Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
 
 [targets]
 test = ["Documenter"]
+
+[compat]
+julia = "1.0"
