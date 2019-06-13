@@ -1,6 +1,2 @@
-.DS_Store
-/docs/build/
-*.jl.cov
-*.jl.*.cov
-*.jl.mem
+/test/build/
 online_package.toml
