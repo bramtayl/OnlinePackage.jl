@@ -91,7 +91,7 @@ function make_key(ssh_keygen_file, key_name)
 end
 make_key_at(temp_file, ssh_keygen_file, key_name) = cd(
     let ssh_keygen_file = ssh_keygen_file, key_name = key_name
-        make_key_capture() = make_key(ssh_keygen_file, key_name)
+        () -> make_key(ssh_keygen_file, key_name)
     end,
     temp_file
 )
@@ -151,8 +151,7 @@ function put_online(user::User, repo_name)
     github_keys = "/repos/$username/$repo_name/keys"
     foreach(
         let github_remote = github_remote, key_name = key_name
-            delete_github_key_capture(key) =
-                delete_github_key(github_remote, key, key_name)
+            key -> delete_github_key(github_remote, key, key_name)
         end,
         json_string(talk_to(HTTP.get, github_remote, github_keys))
     )
@@ -165,8 +164,7 @@ function put_online(user::User, repo_name)
     travis_keys = "/repo/$repo_code/env_vars"
     foreach(
         let travis_remote = travis_remote, key_name = key_name
-            delete_travis_key_capture(key) =
-                delete_travis_key(travis_remote, key, key_name)
+            key -> delete_travis_key(travis_remote, key, key_name)
         end,
         json_string(talk_to(HTTP.get, travis_remote, travis_keys))["env_vars"]
     )
