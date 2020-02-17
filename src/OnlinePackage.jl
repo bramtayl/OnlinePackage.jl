@@ -107,7 +107,7 @@ function put_online(user::User, repo_name)
         cd(temp_file) do
             run(`$ssh_keygen_file -f $key_name -N "" -q`)
             read(string(key_name, ".pub"), String),
-                read(key_name, String) |> chomp
+                read(key_name, String) |> chomp |> base64encode
         end
     end
 
@@ -125,7 +125,7 @@ function put_online(user::User, repo_name)
     )
 
     for secret in json_string(talk_to(HTTP.get, github_remote, "/repos/$username/$repo_name/actions/secrets"))["secrets"]
-        if secret["title"] == key_name
+        if secret["name"] == key_name
             talk_to(HTTP.delete, github_remote, "/repos/$username/$repo_name/actions/secrets/$key_name")
         end
     end
@@ -139,6 +139,7 @@ function put_online(user::User, repo_name)
         length(private_key) +
         ccall((:crypto_box_sealbytes, libsodium), Cint, ())
     )
+    unsafe_string(pointer(raw_encoded), length(raw_encoded))
     error_code = ccall(
         (:crypto_box_seal, libsodium),
         Int32,
@@ -155,7 +156,6 @@ function put_online(user::User, repo_name)
     )
     nothing
 end
-export put_online
 
 """
     delete(user::User, repo_name)
