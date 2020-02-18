@@ -130,6 +130,11 @@ function put_online(user::User, repo_name)
         end
     end
 
+    init_error_code = ccall((:sodium_init, libsodium), Int32, ())
+    if init_error_code != 0
+        error("Error using libsodium.sodium_init")
+    end
+
     sodium_key_id = json_string(talk_to(HTTP.get, github_remote,
         "/repos/$username/$repo_name/actions/secrets/public-key"
     ))
@@ -139,7 +144,6 @@ function put_online(user::User, repo_name)
         length(private_key) +
         ccall((:crypto_box_sealbytes, libsodium), Cint, ())
     )
-    unsafe_string(pointer(raw_encoded), length(raw_encoded))
     error_code = ccall(
         (:crypto_box_seal, libsodium),
         Int32,
