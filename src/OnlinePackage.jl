@@ -2,7 +2,7 @@ module OnlinePackage
 
 using Base: Generator
 using Base64: base64encode, base64decode
-using libsodium_jll: libsodium
+using Sodium: sodium_init, crypto_box_SEALBYTES, crypto_box_seal
 import HTTP
 import JSON
 import JSON: json
@@ -107,7 +107,7 @@ function put_online(user::User, repo_name)
         cd(temp_file) do
             run(`$ssh_keygen_file -f $key_name -N "" -q`)
             read(string(key_name, ".pub"), String),
-                read(key_name, String) |> chomp |> base64encode
+                base64encode(read(key_name, String))
         end
     end
 
@@ -130,7 +130,7 @@ function put_online(user::User, repo_name)
         end
     end
 
-    init_error_code = ccall((:sodium_init, libsodium), Int32, ())
+    init_error_code = sodium_init()
     if init_error_code < 0
         error("Error using libsodium.sodium_init")
     end
@@ -140,15 +140,12 @@ function put_online(user::User, repo_name)
     ))
 
     sodium_key = base64decode(sodium_key_id["key"])
-    raw_encoded = Vector{UInt8}(undef,
-        length(private_key) +
-        ccall((:crypto_box_sealbytes, libsodium), Cint, ())
-    )
-    error_code = ccall(
-        (:crypto_box_seal, libsodium),
-        Int32,
-        (Ptr{UInt8}, Cstring, Cint, Ptr{UInt8}),
-        raw_encoded, private_key, length(private_key), sodium_key
+    raw_encoded = Vector{Cuchar}(undef, crypto_box_SEALBYTES + length(private_key))
+    error_code = crypto_box_seal(
+        raw_encoded,
+        private_key,
+        length(private_key),
+        sodium_key
     )
     if error_code != 0
         error("Error using libsodium.crypto_box_seal")
