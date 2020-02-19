@@ -96,7 +96,7 @@ uuid = "6462fe0b-24de-5631-8697-dd941f90decc"
 deps = ["libsodium_jll"]
 git-tree-sha1 = "894b3d08803dbc93104d2108739f3204849dfe54"
 repo-rev = "master"
-repo-url = "https://github.com/Gnimuc/Sodium.jl.git"
+repo-url = "https://github.com/Gnimuc/Sodium.jl"
 uuid = "4f5b5e99-b0ad-42cd-b47a-334e172ec8bd"
 version = "1.0.0"
 

@@ -8,11 +8,12 @@ version = "0.1.4"
 Base64 = "2a0f44e3-6c83-55bd-87e4-b1978d98bd5f"
 HTTP = "cd3eb016-35fb-5094-929b-558a96fad6f3"
 JSON = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
-LibGit2 = "76f85450-5226-5b5a-8eaa-529ad045b433"
 Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
 Sodium = "4f5b5e99-b0ad-42cd-b47a-334e172ec8bd"
 
 [compat]
+HTTP = "0.8"
+JSON = "0.21"
 julia = "1.0"
 
 [extras]
