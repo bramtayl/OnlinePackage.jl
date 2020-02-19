@@ -35,7 +35,8 @@ User(; username, github_token, ssh_keygen_file) =
 
 Create a user profile from a TOML file. By default, looks in `USER_FILE`
 
-The file must contain a `username`, `github_token`, and `ssh_keygen_file`. see the sample.toml file for an example.
+The file must contain a `username`, `github_token`, and `ssh_keygen_file`. See
+the sample.toml file in this repository for an example.
 
 Use your github username.
 
@@ -83,12 +84,15 @@ github(user::User) = Remote("https://api.github.com", user.github_token)
     put_online(user::User, repo_name)
 
 Put a repository online: put it on github, and create an SSH key to allow github
-actions to push to github.
+actions to push to github. If the repository already exists, it will create a
+new set of keys.
 
 ```jldoctest
 julia> using OnlinePackage
 
 julia> user = get_user(OnlinePackage.SAMPLE_FILE);
+
+julia> put_online(user, "Test.jl")
 
 julia> put_online(user, "Test.jl")
 
@@ -128,9 +132,11 @@ function put_online(user::User, repo_name)
         read_only = false
     )
 
-    for secret in json_string(talk_to(HTTP.get, github_remote, "/repos/$username/$repo_name/actions/secrets"))["secrets"]
+    github_secrets = "/repos/$username/$repo_name/actions/secrets"
+
+    for secret in json_string(talk_to(HTTP.get, github_remote, github_secrets))["secrets"]
         if secret["name"] == key_name
-            talk_to(HTTP.delete, github_remote, "/repos/$username/$repo_name/actions/secrets/$key_name")
+            talk_to(HTTP.delete, github_remote, "$github_secrets/$key_name")
         end
     end
 
@@ -140,7 +146,7 @@ function put_online(user::User, repo_name)
     end
 
     sodium_key_id = json_string(talk_to(HTTP.get, github_remote,
-        "/repos/$username/$repo_name/actions/secrets/public-key"
+        "$github_secrets/public-key"
     ))
 
     sodium_key = base64decode(sodium_key_id["key"])
@@ -155,7 +161,7 @@ function put_online(user::User, repo_name)
         error("Error using libsodium.crypto_box_seal")
     end
     talk_to(
-        HTTP.put, github_remote, "/repos/$username/$repo_name/actions/secrets/$key_name",
+        HTTP.put, github_remote, "$github_secrets/$key_name",
         encrypted_value = base64encode(raw_encoded),
         key_id = sodium_key_id["key_id"]
     )
