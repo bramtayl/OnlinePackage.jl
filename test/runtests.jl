@@ -1,11 +1,4 @@
-using Documenter: makedocs, deploydocs
 import OnlinePackage
+import Documenter: doctest
 
-makedocs(
-    sitename = "OnlinePackage.jl",
-    strict = true
-)
-
-deploydocs(
-    repo = "github.com/bramtayl/OnlinePackage.jl.git",
-)
+doctest(OnlinePackage)

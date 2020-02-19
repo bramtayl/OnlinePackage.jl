@@ -1,6 +1,7 @@
 # OnlinePackage
 
 ```@index
+Modules = [OnlinePackage]
 ```
 
 ```@autodocs
