@@ -12,8 +12,8 @@ Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
 Sodium = "4f5b5e99-b0ad-42cd-b47a-334e172ec8bd"
 
 [compat]
-HTTP = "0.8"
-JSON = "0.21"
+HTTP = "0.1"
+JSON = "0.1"
 julia = "1.0"
 
 [extras]
