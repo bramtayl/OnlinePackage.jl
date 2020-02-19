@@ -9,12 +9,13 @@ Base64 = "2a0f44e3-6c83-55bd-87e4-b1978d98bd5f"
 HTTP = "cd3eb016-35fb-5094-929b-558a96fad6f3"
 JSON = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
 Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
-Sodium = "4f5b5e99-b0ad-42cd-b47a-334e172ec8bd"
+libsodium_jll = "a9144af2-ca23-56d9-984f-0d03f7b5ccf8"
 
 [compat]
-HTTP = "0.1"
-JSON = "0.1"
-julia = "1.0"
+HTTP = ">= 0"
+JSON = ">= 0"
+julia = ">= 1"
+libsodium_jll = ">= 0"
 
 [extras]
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"

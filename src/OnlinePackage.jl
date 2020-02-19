@@ -2,15 +2,19 @@ module OnlinePackage
 
 using Base: Generator
 using Base64: base64encode, base64decode
-using Sodium: sodium_init, crypto_box_SEALBYTES, crypto_box_seal
+using libsodium_jll
 import HTTP
 import JSON
 import JSON: json
 import Pkg: TOML
 
+include("mini_sodium.jl")
+
 "where OnlinePackage will look for your user information"
 const USER_FILE = joinpath(dirname(@__DIR__), "online_package.toml")
 export USER_FILE
+
+const SAMPLE_FILE = joinpath(dirname(@__DIR__), "sample.toml")
 
 struct Remote
     base_url::String
@@ -43,7 +47,7 @@ not, it often comes prepacked with git; check `PATH_TO_GIT/usr/bin/ssh-keygen"`.
 """
 function get_user(user_file = USER_FILE)
     user_dict = open(TOML.parse, user_file)
-    user_dict["github_token"] = replace(user_dict["github_token"], '~' => "a")
+    user_dict["github_token"] = replace(user_dict["github_token"], '~' => 'c')
     User(; (Symbol(pair.first) => pair.second for pair in user_dict)...)
 end
 export get_user
@@ -84,7 +88,7 @@ actions to push to github.
 ```jldoctest
 julia> using OnlinePackage
 
-julia> user = get_user(joinpath(dirname(pwd()), "sample.toml"));
+julia> user = get_user(OnlinePackage.SAMPLE_FILE);
 
 julia> put_online(user, "Test.jl")
 
@@ -140,7 +144,7 @@ function put_online(user::User, repo_name)
     ))
 
     sodium_key = base64decode(sodium_key_id["key"])
-    raw_encoded = Vector{Cuchar}(undef, crypto_box_SEALBYTES + length(private_key))
+    raw_encoded = Vector{Cuchar}(undef, crypto_box_sealbytes() + length(private_key))
     error_code = crypto_box_seal(
         raw_encoded,
         private_key,
@@ -157,6 +161,7 @@ function put_online(user::User, repo_name)
     )
     nothing
 end
+export put_online
 
 """
     delete(user::User, repo_name)
