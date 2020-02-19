@@ -101,7 +101,7 @@ function put_online(user::User, repo_name)
 
     if !exists(user, repo_name)
         talk_to(HTTP.post, github_remote, "/user/repos", name = repo_name)
-        sleep(10)
+        sleep(30)
     end
 
     ssh_keygen_file = user.ssh_keygen_file
