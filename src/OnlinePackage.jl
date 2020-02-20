@@ -14,6 +14,8 @@ include("mini_sodium.jl")
 const USER_FILE = joinpath(dirname(@__DIR__), "online_package.toml")
 export USER_FILE
 
+PAGE_LIMIT = 100 # the user should be able to change this if they have more than 100 repos
+
 const SAMPLE_FILE = joinpath(dirname(@__DIR__), "sample.toml")
 
 struct Remote
@@ -74,7 +76,7 @@ json_string(x) = x |> String |> JSON.parse
 
 exists(user::User, repo_name) = any(
     repo["name"] == repo_name for repo in json_string(
-        talk_to(HTTP.get, github(user), "/user/repos?per_page=100")
+        talk_to(HTTP.get, github(user), "/user/repos?per_page=$PAGE_LIMIT")
     )
 )
 
