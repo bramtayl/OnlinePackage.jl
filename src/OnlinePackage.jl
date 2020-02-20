@@ -90,13 +90,15 @@ new set of keys.
 ```jldoctest
 julia> using OnlinePackage
 
+julia> repo_name = "Test$VERSION.jl";
+
 julia> user = get_user(OnlinePackage.SAMPLE_FILE);
 
-julia> put_online(user, "Test.jl")
+julia> put_online(user, repo_name)
 
-julia> put_online(user, "Test.jl")
+julia> put_online(user, repo_name
 
-julia> delete(user, "Test.jl")
+julia> delete(user, repo_name)
 ```
 """
 function put_online(user::User, repo_name)
