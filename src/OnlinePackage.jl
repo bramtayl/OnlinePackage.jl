@@ -96,7 +96,7 @@ julia> user = get_user(OnlinePackage.SAMPLE_FILE);
 
 julia> put_online(user, repo_name)
 
-julia> put_online(user, repo_name
+julia> put_online(user, repo_name)
 
 julia> delete(user, repo_name)
 ```
