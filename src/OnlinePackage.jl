@@ -80,39 +80,9 @@ exists(user::User, repo_name) = any(
 
 github(user::User) = Remote("https://api.github.com", user.github_token)
 
-"""
-    put_online(user::User, repo_name)
-
-Put a repository online: put it on github, and create an SSH key to allow github
-actions to push to github. If the repository already exists, it will create a
-new set of keys.
-
-```jldoctest
-julia> using OnlinePackage
-
-julia> repo_name = "Test$VERSION.jl";
-
-julia> user = get_user(OnlinePackage.SAMPLE_FILE);
-
-julia> put_online(user, repo_name)
-
-julia> put_online(user, repo_name)
-
-julia> delete(user, repo_name)
-```
-"""
-function put_online(user::User, repo_name)
+function add_key(user, github_remote, repo_name, key_name)
     username = user.username
-    github_remote = github(user)
-
-    if !exists(user, repo_name)
-        talk_to(HTTP.post, github_remote, "/user/repos", name = repo_name)
-        sleep(1)
-    end
-
     ssh_keygen_file = user.ssh_keygen_file
-    key_name = "DOCUMENTER_KEY"
-
     public_key, private_key = mktempdir() do temp_file
         cd(temp_file) do
             run(`$ssh_keygen_file -f $key_name -N "" -q`)
@@ -167,6 +137,43 @@ function put_online(user::User, repo_name)
         encrypted_value = base64encode(raw_encoded),
         key_id = sodium_key_id["key_id"]
     )
+    nothing
+end
+
+"""
+    put_online(user::User, repo_name; keys = ("COMPATHELPER_PRIV",))
+
+Put a repository online: put it on github, and create SSH keys with names listed in `keys`
+for use in various github actions. If the repository already exists, it will create a new
+set of keys.
+
+```jldoctest
+julia> using OnlinePackage
+
+julia> repo_name = "Test$VERSION.jl";
+
+julia> user = get_user(OnlinePackage.SAMPLE_FILE);
+
+julia> put_online(user, repo_name)
+
+julia> put_online(user, repo_name)
+
+julia> delete(user, repo_name)
+```
+"""
+function put_online(user::User, repo_name; keys = ("COMPATHELPER_PRIV",))
+    username = user.username
+    github_remote = github(user)
+
+    if !exists(user, repo_name)
+        talk_to(HTTP.post, github_remote, "/user/repos", name = repo_name)
+        sleep(1)
+    end
+
+    ssh_keygen_file = user.ssh_keygen_file
+    for key_name in keys
+        add_key(user, github_remote, repo_name, key_name)
+    end
     nothing
 end
 export put_online
