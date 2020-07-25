@@ -121,7 +121,7 @@ function add_key(user, repo_name, key_name)
     raw_encoded = Vector{Cuchar}(undef, crypto_box_sealbytes() + length(private_key))
     error_code = crypto_box_seal(raw_encoded, private_key, length(private_key), sodium_key)
     if error_code != 0
-        error("Error using libsodium.crypto_box_seal")
+        error("Error using libsodium.crypto_box_seal: code $error_code")
     end
     talk_to(
         HTTP.put,
