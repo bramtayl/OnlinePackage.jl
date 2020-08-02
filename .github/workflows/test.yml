@@ -22,4 +22,4 @@ jobs:
       - uses: julia-actions/julia-uploadcodecov@latest
         env:
           DISABLE_AMEND_COVERAGE_FROM_SRC: yes
-      - uses: julia-actions/julia-format@master
+      - uses: domluna/JuliaFormatter-action@master
