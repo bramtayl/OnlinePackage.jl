@@ -7,5 +7,13 @@ function crypto_box_sealbytes()
 end
 
 function crypto_box_seal(c, m, mlen, pk)
-    ccall((:crypto_box_seal, libsodium), Cint, (Ptr{Cuchar}, Ptr{Cuchar}, Culonglong, Ptr{Cuchar}), c, m, mlen, pk)
+    ccall(
+        (:crypto_box_seal, libsodium),
+        Cint,
+        (Ptr{Cuchar}, Ptr{Cuchar}, Culonglong, Ptr{Cuchar}),
+        c,
+        m,
+        mlen,
+        pk,
+    )
 end
