@@ -31,10 +31,17 @@ User(; username, token, ssh_keygen_file) =
 """
     get_user(user_file = USER_FILE)
 
-Create a user profile from a TOML file. By default, looks in `USER_FILE`
+Create a user profile from a TOML file. By default, looks in `USER_FILE`.
 
 The file must contain a `username`, `token`, and `ssh_keygen_file`. See
-the sample.toml file in this repository for an example.
+the sample.toml file in this repository for an example. It should look something like the
+following:
+
+```
+username = YOUR_GITHUB_USERNAME
+token = YOUR_GITHUB_TOKEN
+ssh_keygen_file = PATH_TO_SSH_KEYGEN
+```
 
 Use your github `username`.
 

@@ -50,8 +50,8 @@ run
 put_online(user, "YOUR_NEW_PACKAGE.jl", key_names = ("COMPATHELPER_PRIV", "DOCUMENTER_KEY"))
 ```
 
-Note that Documenter does can use a generic `GITHUB_TOKEN` provided you enable github pages,
-so this is not strictly necessary.
+Note that Documenter can use a generic `GITHUB_TOKEN` provided you enable github pages, so
+this is not strictly necessary.
 
 You can also use OnlinePackage to add keys to previously existing packages. The syntax is
 the same as above: OnlinePackage will automatically detect an existing package.
