@@ -38,9 +38,9 @@ the sample.toml file in this repository for an example. It should look something
 following:
 
 ```
-username = YOUR_GITHUB_USERNAME
-token = YOUR_GITHUB_TOKEN
-ssh_keygen_file = PATH_TO_SSH_KEYGEN
+username = "YOUR_GITHUB_USERNAME"
+token = "YOUR_GITHUB_TOKEN"
+ssh_keygen_file = "PATH_TO_SSH_KEYGEN"
 ```
 
 Use your github `username`.

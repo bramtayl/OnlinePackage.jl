@@ -21,9 +21,9 @@ The first step to use OnlinePackage is to fill out your user information.
 The contents of the file should look like this:
 
 ```
-username = YOUR_GITHUB_USERNAME
-token = YOUR_GITHUB_TOKEN
-ssh_keygen_file = PATH_TO_SSH_KEYGEN
+username = "YOUR_GITHUB_USERNAME"
+token = "YOUR_GITHUB_TOKEN"
+ssh_keygen_file = "PATH_TO_SSH_KEYGEN"
 ```
 
 See the documentation for [`get_user`](@ref) for information about how to create this
